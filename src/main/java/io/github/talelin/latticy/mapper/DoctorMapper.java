@@ -21,7 +21,7 @@ public interface DoctorMapper extends BaseMapper<DoctorDO> {
     List<DoctorDO> selectByName(@Param("name") String name);
 
     /**
-     * 根据医院查询医生
+
      * @param hospital 医院名称
      * @return 医生数据对象列表
      */
