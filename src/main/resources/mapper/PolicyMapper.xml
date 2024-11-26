@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.github.talelin.latticy.mapper.PolicyMapper">
+
+    <resultMap id="BaseResultMap" type="io.github.talelin.latticy.model.PolicyDO">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="policy_title" jdbcType="VARCHAR" property="policyTitle"/>
+        <result column="policy_description" jdbcType="VARCHAR" property="policyDescription"/>
+        <result column="policy_type" jdbcType="VARCHAR" property="policyType"/>
+        <result column="release_date" jdbcType="TIMESTAMP" property="releaseDate"/>
+        <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt"/>
+    </resultMap>
+
+    <!-- 根据政策标题模糊查询政策 -->
+    <select id="selectByTitleLikeKeyword" resultMap="BaseResultMap">
+        SELECT *
+        FROM policy
+        WHERE policy_title LIKE #{q}
+    </select>
+
+    <!-- 查询所有政策 -->
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT *
+        FROM policy
+    </select>
+
+</mapper>

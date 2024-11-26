@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.github.talelin.latticy.mapper.DepartmentMapper">
+
+    <resultMap id="BaseResultMap" type="io.github.talelin.latticy.model.DepartmentDO">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="department_name" jdbcType="VARCHAR" property="departmentName"/>
+        <result column="number_of_staff" jdbcType="INTEGER" property="numberOfStaff"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="created_at" jdbcType="TIMESTAMP" property="createdAt"/>
+        <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt"/>
+    </resultMap>
+
+    <!-- 根据科室名称模糊查询科室 -->
+    <select id="selectByDepartmentNameLikeKeyword" resultMap="BaseResultMap">
+        SELECT *
+        FROM department d
+        WHERE
+            d.department_name LIKE CONCAT('%', #{q}, '%')
+    </select>
+
+    <!-- 根据科室名称查询科室 -->
+    <select id="selectByDepartmentName" resultMap="BaseResultMap">
+        SELECT *
+        FROM department d
+        WHERE d.department_name = #{departmentName}
+    </select>
+
+    <!-- 获取所有科室 -->
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT *
+        FROM department
+    </select>
+</mapper>

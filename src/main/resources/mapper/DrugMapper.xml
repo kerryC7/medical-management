@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.github.talelin.latticy.mapper.DrugMapper">
+
+    <!-- ResultMap定义 -->
+    <resultMap id="BaseResultMap" type="io.github.talelin.latticy.model.DrugDO">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="price" jdbcType="DECIMAL" property="price"/>
+        <result column="created_at" jdbcType="TIMESTAMP" property="createdAt"/>
+        <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt"/>
+    </resultMap>
+
+    <!-- 根据名称模糊查询药品 -->
+    <select id="selectByNameLikeKeyword" resultMap="BaseResultMap">
+        SELECT *
+        FROM drugs
+        WHERE name LIKE #{q}
+    </select>
+
+    <!-- 根据药品名称查询 -->
+    <select id="selectByName" resultMap="BaseResultMap">
+        SELECT *
+        FROM drugs
+        WHERE name = #{name}
+    </select>
+
+</mapper>
