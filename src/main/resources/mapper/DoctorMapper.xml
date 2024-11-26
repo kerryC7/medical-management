@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.github.talelin.latticy.mapper.DoctorMapper">
+
+    <resultMap id="BaseResultMap" type="io.github.talelin.latticy.model.DoctorDO">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="hospital" jdbcType="VARCHAR" property="hospital"/>
+        <result column="department" jdbcType="VARCHAR" property="department"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="summary" jdbcType="VARCHAR" property="summary"/>
+        <result column="image" jdbcType="VARCHAR" property="image"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <!-- 查询所有医生 -->
+    <select id="selectAllDoctors" resultMap="BaseResultMap">
+        SELECT *
+        FROM doctor
+        WHERE is_deleted = 0
+    </select>
+
+    <!-- 根据医生姓名查询 -->
+    <select id="selectByName" resultMap="BaseResultMap">
+        SELECT *
+        FROM doctor
+        WHERE name = #{name}
+          AND is_deleted = 0
+    </select>
+
+    <!-- 根据医院查询医生 -->
+    <select id="selectByHospital" resultMap="BaseResultMap">
+        SELECT *
+        FROM doctor
+        WHERE hospital = #{hospital}
+          AND is_deleted = 0
+    </select>
+
+    <!-- 新增医生 -->
+    <insert id="insertDoctor" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO doctor (name, title, hospital, department, phone, summary, image, create_time, update_time)
+        VALUES (#{name}, #{title}, #{hospital}, #{department}, #{phone}, #{summary}, #{image}, NOW(), NOW())
+    </insert>
+
+    <!-- 修改医生信息 -->
+    <update id="updateDoctor">
+        UPDATE doctor
+        SET name = #{name}, title = #{title}, hospital = #{hospital}, department = #{department},
+            phone = #{phone}, summary = #{summary}, image = #{image}, update_time = NOW()
+        WHERE id = #{id}
+    </update>
+
+    <!-- 删除医生 -->
+    <delete id="deleteDoctor">
+        DELETE FROM doctor WHERE id = #{id}
+    </delete>
+</mapper>
